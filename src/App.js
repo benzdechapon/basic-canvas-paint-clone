@@ -1,5 +1,6 @@
+import React from 'react';
 import { useRef, useEffect, useState } from 'react';
-
+import "./App.css";
 function App() {
 
   const canvasRef = useRef(null);
@@ -8,13 +9,13 @@ function App() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth * 2;
-    canvas.height = window.innerHeight * 2;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     canvas.style.width = `${window.innerWidth}px`;
     canvas.style.height = `${window.innerHeight}px`;
+    console.log(window.innerWidth);
 
     const context = canvas.getContext('2d');
-    context.scale(2, 2);
     context.lineCap = "round";
     context.strokeStyle = "black";
     context.lineWidth = 5;
@@ -47,11 +48,18 @@ function App() {
   };
 
   return (
-    <canvas onMouseDown={startDrawing}
-      onMouseUp={finishDrawing}
-      onMouseMove={draw}
-      ref={canvasRef}
+    <div>
+      <h1 className="title">Start your drawing here.</h1>
+      <canvas
+        onMouseDown={startDrawing}
+        onMouseUp={finishDrawing}
+        onMouseMove={draw}
+        onTouchStart={startDrawing}
+        onTouchMove={draw}
+        ref={canvasRef}
     />
+    </div>
+
   );
 }
 
